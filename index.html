@@ -547,7 +547,7 @@
     .memory-photos .photo-slot {
       border-radius: 16px;
       overflow: hidden;
-      aspect-ratio: 4/3;
+      aspect-ratio: 9/16;
       background: linear-gradient(135deg, var(--pink-100), var(--pink-200));
       display: flex;
       align-items: center;
@@ -558,8 +558,10 @@
 
     .memory-photos .photo-slot.wide {
       grid-column: 1/-1;
-      aspect-ratio: 16/7
+      aspect-ratio: 16/7;
     }
+
+
 
     .memory-photos img {
       width: 100%;
@@ -950,7 +952,6 @@
         <button class="nav-link active" onclick="showPage('we')">We</button>
         <button class="nav-link" onclick="showPage('memories')">Memories</button>
         <button class="nav-link" onclick="showPage('quiz')">Quiz</button>
-        <button class="nav-link" onclick="showPage('article')">Article</button>
       </div>
     </nav>
 
@@ -979,18 +980,19 @@
             <div class="cd-label">Seconds</div>
           </div>
         </div>
-        <p style="color:var(--text-soft);font-style:italic;font-size:15px">Together since April 15, 2024 ✨</p>
+        <p style="color:var(--text-soft);font-style:italic;font-size:15px">Together since April 16, 2025 ✨</p><br>
+        <p style="color:var(--text-soft);font-size:15px">Scroll down 👇</p>
       </div>
 
       <div class="section-block">
         <h2 class="section-title">Our Story Begins...</h2>
         <div class="intro-text">
-          <p>From the very first moment I met you in person, something inside me just knew — this person is going to
-            change my
-            life forever.</p>
-          <p>Every laugh we've shared, every little moment we've stolen from ordinary days, has become the most precious
+          <p>From the very first moment I met you in person, something inside me just knew — <br> this person is going
+            to change my life forever.</p>
+          <p>Every laugh we've shared, every little moment we've stolen from ordinary days, <br> has become the most
+            precious
             memory I carry.</p>
-          <p>You make the mundane magical, the hard days bearable, and the good days absolutely unforgettable.</p>
+          <p>You make the mundane magical, the hard days bearable,<br> and the good days absolutely unforgettable.</p>
           <p>One year later, I fall for you a little more with every single heartbeat. Here's to us — and to all the
             years ahead.</p>
         </div>
@@ -1001,48 +1003,21 @@
         <div class="zodiac-grid">
           <div class="zodiac-card">
             <div class="zodiac-icon">♌</div>
-            <h3>She is Leo</h3>
-            <p>Bold, radiant, and fiercely loving. A natural queen who lights up every room she enters. Warm-hearted,
-              generous, and endlessly loyal — her roar is as fierce as her love.</p>
+            <h3>You are Leo</h3>
+            <p>Bold, radiant, and fiercely loving. A natural queen who lights up every room you enter. Warm-hearted,
+              generous, and endlessly loyal — your roar is as fierce as your love.</p>
           </div>
           <div class="zodiac-card">
             <div class="zodiac-icon">♑</div>
-            <h3>She is Capricorn</h3>
+            <h3>I am Capricorn</h3>
             <p>Steady, devoted, and quietly determined. The mountain that stands firm through any storm. Patient and
-              grounded, her love is built to last through every season.</p>
+              grounded, my love is built to last through every season.</p>
           </div>
         </div>
       </div>
 
       <div class="opposites-section">
-        <h2 class="opposites-title">We Are Opposites 🤍🖤</h2>
-        <div class="opp-row">
-          <div class="opp-she"><span>🐶</span>
-            <p>Dog Lover</p>
-          </div>
-          <div class="opp-vs">vs</div>
-          <div class="opp-he"><span>🐱</span>
-            <p>Cat Lover</p>
-          </div>
-        </div>
-        <div class="opp-row">
-          <div class="opp-she"><span>🍫</span>
-            <p>Choco</p>
-          </div>
-          <div class="opp-vs">vs</div>
-          <div class="opp-he"><span>🥛</span>
-            <p>Milk</p>
-          </div>
-        </div>
-        <div class="opp-row">
-          <div class="opp-she"><span>🖤</span>
-            <p>Black</p>
-          </div>
-          <div class="opp-vs">vs</div>
-          <div class="opp-he"><span>🤍</span>
-            <p>White</p>
-          </div>
-        </div>
+        <h2 class="opposites-title">We Are Opposites</h2>
         <div class="opp-row">
           <div class="opp-she"><span>🌞</span>
             <p>Warm like Sunshine</p>
@@ -1052,7 +1027,35 @@
             <p>Cool like Moonlight</p>
           </div>
         </div>
-        <div class="conclusion-text">"Opposite but balancing love." 🌸</div>
+        <div class="opp-row">
+          <div class="opp-she"><span>🐶</span>
+            <p>Loves Dog</p>
+          </div>
+          <div class="opp-vs">vs</div>
+          <div class="opp-he"><span>🐱</span>
+            <p>Loves Cat</p>
+          </div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-she"><span>🍫</span>
+            <p>Likes Choco</p>
+          </div>
+          <div class="opp-vs">vs</div>
+          <div class="opp-he"><span>🥛</span>
+            <p>Likes Milk</p>
+          </div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-she"><span>🖤</span>
+            <p>Wears Black</p>
+          </div>
+          <div class="opp-vs">vs</div>
+          <div class="opp-he"><span>🤍</span>
+            <p>Wears White</p>
+          </div>
+        </div>
+
+        <div class="conclusion-text">"Opposite but balancing love 🤍🖤"</div>
       </div>
 
     </div>
@@ -1065,28 +1068,41 @@
       </div>
 
       <div class="memory-section">
-        <div class="memory-label">Chapter 01 · First Meet</div>
+        <div class="memory-label">Chapter 01 · First Meet 🤍</div>
         <h2>The Day Everything Changed</h2>
         <div class="memory-layout">
           <div class="memory-photos">
-            <div class="photo-slot">🌸</div>
-            <div class="photo-slot">💕</div>
-            <div class="photo-slot wide">✨</div>
+            <div class="photo-slot"><img src="images/ch01/1.jpeg"></div>
+            <div class="photo-slot"><img src="images/ch01/2.jpeg"></div>
+
           </div>
           <div class="memory-text">
-            <p>It was just another ordinary day — until it wasn't. The moment our eyes met, the whole world seemed to
-              slow down just a little. There was something so familiar in a stranger's smile, like a memory of something
-              that hadn't happened yet.</p>
-            <p>I didn't know then that this would be the beginning of everything. That a single moment, casual and
-              unplanned, would become the origin story of my favourite chapter.</p>
+            <p>IIt was my first time stepping into a foreign land,
+              and my heart carried a soft, trembling worry—
+              the kind that lingers between excitement and fear.
+              Everything felt unfamiliar, distant, unknown.
+
+              But then, I met you.
+
+              And in that very moment,
+              the noise of uncertainty faded into silence.
+              You felt like an oasis I didn’t know I was searching for—
+              a place of calm in the middle of all my wandering thoughts.
+
+              What once felt foreign suddenly felt warm,
+              what once felt distant suddenly felt close.
+              Because somehow, in a place so far from home,
+              I found something that felt exactly like it.
+
+              I found you. I meet you.</p>
           </div>
         </div>
       </div>
 
       <div class="memory-section">
-        <div class="memory-label">Chapter 02 · First Christmas</div>
+        <div class="memory-label">Chapter 02 · First Christmas 🎄</div>
         <h2>Our First Holiday Together</h2>
-        <div class="memory-layout flip">
+        <div class="memory-layout">
           <div class="memory-photos">
             <div class="photo-slot">🎄</div>
             <div class="photo-slot">🎁</div>
@@ -1102,40 +1118,42 @@
       </div>
 
       <div class="memory-section">
-        <div class="memory-label">Chapter 03 · First Trip</div>
-        <h2>Adventures Together</h2>
-        <div class="memory-layout">
-          <div class="memory-photos">
-            <div class="photo-slot">✈️</div>
-            <div class="photo-slot">🗺️</div>
-            <div class="photo-slot wide">🌅</div>
-          </div>
-          <div class="memory-text">
-            <p>There's a special kind of magic in travelling with someone you love. Seeing new places through your eyes
-              made every destination twice as beautiful. Even when we got lost — especially when we got lost.</p>
-            <p>Every photo from that trip tells a story, but the best moments happened between the frames — in the car
-              rides, the late-night snacks, the quiet sunsets we watched without saying a word.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="memory-section">
-        <div class="memory-label">Chapter 04 · First New Year</div>
+        <div class="memory-label">Chapter 03 · First New Year 🎆</div>
         <h2>Counting Down Together</h2>
-        <div class="memory-layout flip">
+        <div class="memory-layout">
           <div class="memory-photos">
             <div class="photo-slot">🎆</div>
             <div class="photo-slot">🥂</div>
           </div>
           <div class="memory-text">
             <p>As the clock approached midnight, there was nowhere else on earth I would have rather been than right
-              there beside you. Watching the fireworks with you, I made the same wish as the year before — more moments
-              exactly like this one.</p>
+              there beside you. Watching the fireworks with you, I made a wish — more moments exactly like this one for
+              countless years.</p>
             <p>New Year's Eve is supposed to be about new beginnings, but all I could think about was how grateful I was
               for everything we already had.</p>
           </div>
         </div>
       </div>
+
+      <div class="memory-section">
+        <div class="memory-label">Chapter 04 · First Trip 🎒</div>
+        <h2>Adventures Together</h2>
+        <div class="memory-layout">
+          <div class="memory-photos">
+            <div class="photo-slot">✈️</div>
+            <div class="photo-slot">🗺️</div>
+          </div>
+          <div class="memory-text">
+            <p>My birthday felt different this year— because it was with you.We rode the cable car up to Ba Den
+              Mountain,
+              watching the world grow smaller beneath us.At the peak, we shared a buffet meal.
+              And on the way down,we chose the coaster—fast, wild, full of laughter.
+              It was not just a trip.It was a memory I will always keep,because every moment had you in it.</p>
+          </div>
+        </div>
+      </div>
+
+
 
       <div class="memory-section">
         <div class="memory-label">Chapter 05 · First Anniversary 🎉</div>
@@ -1161,7 +1179,7 @@
     <!-- ===== PAGE: QUIZ ===== -->
     <div id="page-quiz" class="page">
       <div class="quiz-header">
-        <h1>Who Is She? 🎮</h1>
+        <h1>Who Is MaMa's Baby? 🎮</h1>
         <p>Tap the words that describe her perfectly — reach 20 to win!</p>
       </div>
 
@@ -1180,67 +1198,10 @@
         <h1>Yayy!! 🎉</h1>
         <h2
           style="font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,32px);color:var(--pink-deep);margin-bottom:24px">
-          Your Ma Ma's Baby 👶🏻💕</h2>
+          You are Ma Ma's Baby 👶🏻💕</h2>
         <div class="win-img">🥰</div>
-        <p>You know her better than anyone — just like she knows your heart.</p>
-        <button class="win-btn" onclick="resetQuiz()">Play Again 🎮</button>
+        <button class="win-btn" onclick="resetQuiz()"> Yeah, That is me 😎</button>
       </div>
-    </div>
-
-    <!-- ===== PAGE: ARTICLE ===== -->
-    <div id="page-article" class="page">
-      <div class="article-header">
-        <h1>Love Letters 💌</h1>
-        <p>Words that live in the space between us</p>
-      </div>
-
-      <div class="article-section">
-        <div class="article-layout">
-          <div class="article-img">🌸</div>
-          <div class="article-text">
-            <h2>The Quiet Language of Us</h2>
-            <p>There is a language we speak that no one else knows — made of glances across crowded rooms, of inside
-              jokes that need no explanation, of silences that feel more like home than any words could.</p>
-            <p>I have learned to read you the way you read your favourite book: slowly, carefully, savouring every page.
-              I know the way your eyes soften when you're happy, the way your laugh changes when it's truly genuine, the
-              way you hold your coffee cup when you're lost in thought.</p>
-            <p>You are my favourite story, and I am so grateful I get to be in yours.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="article-section">
-        <div class="article-layout flip">
-          <div class="article-img">💐</div>
-          <div class="article-text">
-            <h2>Everything You've Taught Me</h2>
-            <p>You've taught me that love is not a single grand gesture — it's a thousand small ones, repeated every
-              day. It's making someone's favourite drink without being asked. It's remembering the details they
-              mentioned once, months ago.</p>
-            <p>You've shown me that being truly known by someone is the greatest gift in the world. Not the polished,
-              edited version of yourself — but all of it, the mess and the magic together.</p>
-            <p>Because of you, I am braver, softer, and more grateful for the ordinary moments that, strung together,
-              make an extraordinary life.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="article-section">
-        <div class="article-layout">
-          <div class="article-img">🌙</div>
-          <div class="article-text">
-            <h2>A Promise for Every Year Ahead</h2>
-            <p>I promise to keep showing up for you — on the bright days and the heavy ones, in the seasons of ease and
-              the seasons of growth. I promise to keep choosing you, not because I have to, but because there is no
-              version of my happiest life that doesn't have you in it.</p>
-            <p>I promise to always make you laugh, even when it's terrible timing. To be the person who holds your hand
-              in the dark and celebrates every small victory in the light.</p>
-            <p>One year is just the beginning. I can't wait for all the chapters we haven't written yet — every single
-              one, with you.</p>
-          </div>
-        </div>
-      </div>
-
     </div>
 
   </div>
@@ -1304,7 +1265,7 @@
     }
 
     // ===== COUNTDOWN =====
-    const ANNI_DATE = new Date('2024-04-15T00:00:00');
+    const ANNI_DATE = new Date('2025-04-16T00:00:00');
     function startCountdown() {
       function update() {
         const now = new Date();
@@ -1322,9 +1283,8 @@
     }
 
     // ===== QUIZ =====
-    const CORRECT = new Set(['Chef', 'Chocolate', 'Genius', 'Smart', 'Tulip', 'Generous', 'Kind', 'Beauty', 'Tall', 'Dog Lover', 'Matcha', 'Baby Pukyi Tone', 'Sport', 'Car Lover', 'Runner', 'Fair Skin', 'Ash Grey', 'Leo', 'Sunday', 'Tulip']);
-    const WRONG_WORDS = ['Spicy', 'Ocean', 'Rainy', 'Lazy', 'Grumpy', 'Night Owl', 'Coffee', 'Soccer', 'Noodles', 'Dancer', 'Silent', 'Bold', 'Clumsy', 'Salty', 'Gamer', 'Pilot', 'Swimmer', 'Planner', 'Chaotic', 'Sleepy', 'Painter', 'Fast Food', 'Homebody', 'Explorer', 'Reader', 'Singer', 'Coder', 'Dreamer', 'Adventurer', 'Stargazer'];
-    let score = 0;
+    const CORRECT = new Set(['Chef', 'Chocolate', 'Smart', 'Kind', 'Beauty', 'Dog Lover', 'Matcha', 'Sport Lover', 'Car Lover', 'Runner', 'Fair Skin', 'Ash Grey', 'Leo', 'Tulip', 'Night Owl', 'Coffee', 'Leader', 'Adventurer', 'Tiktok', 'Stylist']);
+    const WRONG_WORDS = ['Spicy', 'Ocean', 'Rainy', 'Lazy', 'Grumpy', 'Morning Person', 'Bubble Tea', 'Soccer', 'Noodles', 'Dancer', 'Silent', 'Bold', 'Clumsy', 'Salty', 'Gamer', 'Pilot', 'Swimmer', 'Planner', 'Chaotic', 'Sleepy', 'Painter', 'Fast Food', 'Homebody', 'Teacher', 'Reader', 'Singer', 'Coder', 'Dreamer', 'Study', 'Stargazer']; let score = 0;
 
     function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]] } return a }
 
@@ -1371,7 +1331,7 @@
 
     function resetQuiz() {
       document.getElementById('win-screen').classList.remove('show');
-      initQuiz();
+
     }
 
     function launchConfetti() {
