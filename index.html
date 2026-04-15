@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Our Story 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --pink-light:#FFF0F3;--pink-100:#FFC2D1;--pink-200:#FFB6C1;--pink-400:#FF85A1;--pink-600:#E05577;
+    --pink-deep:#c44472;--cream:#FFF8FA;--gold:#F7D6A3;--white:#fff;
+    --text-dark:#4a1525;--text-mid:#7a3050;--text-soft:#b06080;
+  }
+  body{font-family:'Lato',sans-serif;background:var(--pink-light);color:var(--text-dark);overflow-x:hidden}
+
+  /* ===== AUTH ===== */
+  #auth-screen{
+    position:fixed;inset:0;background:linear-gradient(135deg,#ffe0ea 0%,#ffc2d1 50%,#ffb3c6 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;
+    transition:opacity .8s ease,transform .8s ease;
+  }
+  #auth-screen.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+  .auth-card{
+    background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:32px;
+    padding:48px 56px;text-align:center;box-shadow:0 20px 60px rgba(224,85,119,0.25);
+    border:1.5px solid rgba(255,255,255,0.9);max-width:420px;width:90%;
+  }
+  .auth-hearts{font-size:40px;margin-bottom:16px;animation:float 3s ease-in-out infinite}
+  .auth-card h1{font-family:'Playfair Display',serif;font-size:32px;color:var(--pink-600);margin-bottom:8px}
+  .auth-card p{color:var(--text-soft);font-size:14px;margin-bottom:32px;letter-spacing:.5px}
+  .auth-input{
+    width:100%;padding:14px 20px;border-radius:50px;border:2px solid var(--pink-100);
+    font-size:18px;text-align:center;letter-spacing:6px;font-family:'Lato',sans-serif;
+    background:rgba(255,255,255,0.9);color:var(--text-dark);outline:none;transition:.3s;
+    margin-bottom:20px;
+  }
+  .auth-input:focus{border-color:var(--pink-400);box-shadow:0 0 0 4px rgba(255,133,161,0.2)}
+  .auth-input.shake{animation:shake .4s ease}
+  .auth-btn{
+    width:100%;padding:14px;border-radius:50px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--pink-400),var(--pink-600));
+    color:#fff;font-size:16px;font-weight:700;letter-spacing:1px;
+    font-family:'Lato',sans-serif;transition:.3s;
+  }
+  .auth-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(224,85,119,0.4)}
+  .auth-error{color:#e05577;font-size:13px;margin-top:12px;min-height:20px;font-weight:600}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+
+  /* ===== MAIN APP ===== */
+  #app{display:none}
+  #app.show{display:block}
+
+  /* ===== NAVBAR ===== */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,0.75);backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,182,193,0.4);
+    padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{
+    width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink-200),var(--pink-600));
+    display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;
+    box-shadow:0 4px 12px rgba(255,133,161,0.35);
+  }
+  .nav-links{display:flex;gap:8px}
+  .nav-link{
+    padding:8px 20px;border-radius:50px;font-size:14px;font-weight:700;
+    cursor:pointer;transition:.3s;color:var(--text-soft);letter-spacing:.5px;border:none;background:transparent;
+    font-family:'Lato',sans-serif;
+  }
+  .nav-link:hover,.nav-link.active{background:var(--pink-400);color:#fff;box-shadow:0 4px 12px rgba(255,133,161,0.35)}
+
+  /* ===== PAGES ===== */
+  .page{display:none;min-height:100vh;padding:0 0 80px}
+  .page.active{display:block;animation:fadeIn .5s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ===== SECTION: WE ===== */
+  .hero{
+    min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:60px 24px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#ffe8ef 0%,var(--pink-light) 100%);
+  }
+  .floating-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .fheart{position:absolute;font-size:20px;opacity:.5;animation:floatUp linear infinite}
+  @keyframes floatUp{0%{transform:translateY(100%) rotate(0deg);opacity:.6}100%{transform:translateY(-120%) rotate(20deg);opacity:0}}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);color:var(--pink-600);margin-bottom:16px;line-height:1.1}
+  .hero .subtitle{font-size:clamp(14px,2vw,18px);color:var(--text-soft);margin-bottom:48px;font-style:italic}
+  .countdown{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+  .cd-box{
+    background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);border-radius:20px;
+    padding:20px 24px;min-width:90px;text-align:center;border:1.5px solid rgba(255,182,193,0.5);
+    box-shadow:0 8px 24px rgba(255,133,161,0.15);
+  }
+  .cd-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--pink-600);line-height:1}
+  .cd-label{font-size:11px;color:var(--text-soft);text-transform:uppercase;letter-spacing:1.5px;margin-top:6px}
+
+  .section-block{max-width:800px;margin:0 auto;padding:64px 24px}
+  .section-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink-600);margin-bottom:24px;text-align:center}
+  .intro-text{font-size:16px;line-height:1.9;color:var(--text-mid);text-align:center;max-width:620px;margin:0 auto}
+  .intro-text p{margin-bottom:16px}
+
+  .zodiac-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+  .zodiac-card{
+    background:rgba(255,255,255,0.8);border-radius:24px;padding:32px;text-align:center;
+    border:1.5px solid rgba(255,182,193,0.4);box-shadow:0 8px 24px rgba(255,133,161,0.12);
+  }
+  .zodiac-icon{font-size:52px;margin-bottom:12px}
+  .zodiac-card h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-600);margin-bottom:8px}
+  .zodiac-card p{font-size:13px;color:var(--text-soft);line-height:1.7}
+
+  .opposites-section{max-width:700px;margin:0 auto;padding:0 24px 64px}
+  .opposites-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink-600);text-align:center;margin-bottom:32px}
+  .opp-row{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;
+    background:rgba(255,255,255,0.7);border-radius:20px;padding:20px 28px;margin-bottom:16px;
+    border:1.5px solid rgba(255,182,193,0.3);
+  }
+  .opp-she,.opp-he{text-align:center}
+  .opp-she span,.opp-he span{display:block;font-size:28px;margin-bottom:6px}
+  .opp-she p,.opp-he p{font-size:14px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px}
+  .opp-vs{font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-400);font-style:italic}
+  .conclusion-text{text-align:center;padding:32px 24px;font-family:'Playfair Display',serif;font-size:26px;color:var(--pink-600);font-style:italic}
+
+  /* ===== MEMORIES ===== */
+  .memories-header{text-align:center;padding:64px 24px 32px;background:linear-gradient(180deg,#ffe8ef 0%,transparent 100%)}
+  .memories-header h1{font-family:'Playfair Display',serif;font-size:48px;color:var(--pink-600)}
+  .memories-header p{color:var(--text-soft);font-style:italic;font-size:16px;margin-top:8px}
+  .memory-section{max-width:960px;margin:0 auto;padding:48px 24px;border-bottom:1px dashed rgba(255,182,193,0.4)}
+  .memory-section:last-child{border-bottom:none}
+  .memory-label{
+    display:inline-block;background:linear-gradient(135deg,var(--pink-200),var(--pink-400));
+    color:#fff;border-radius:50px;padding:6px 18px;font-size:12px;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;
+  }
+  .memory-section h2{font-family:'Playfair Display',serif;font-size:32px;color:var(--pink-600);margin-bottom:16px}
+  .memory-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+  .memory-layout.flip{direction:rtl}
+  .memory-layout.flip > *{direction:ltr}
+  .memory-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .memory-photos .photo-slot{
+    border-radius:16px;overflow:hidden;aspect-ratio:4/3;
+    background:linear-gradient(135deg,var(--pink-100),var(--pink-200));
+    display:flex;align-items:center;justify-content:center;font-size:32px;
+    box-shadow:0 8px 20px rgba(255,133,161,0.2);
+  }
+  .memory-photos .photo-slot.wide{grid-column:1/-1;aspect-ratio:16/7}
+  .memory-photos img{width:100%;height:100%;object-fit:cover}
+  .memory-text p{font-size:15px;line-height:1.9;color:var(--text-mid)}
+
+  /* ===== QUIZ ===== */
+  .quiz-header{text-align:center;padding:64px 24px 40px;background:linear-gradient(180deg,#ffe8ef 0%,transparent 100%)}
+  .quiz-header h1{font-family:'Playfair Display',serif;font-size:48px;color:var(--pink-600)}
+  .quiz-header p{color:var(--text-soft);font-style:italic;font-size:16px;margin-top:8px}
+  .score-bar{
+    position:sticky;top:64px;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,182,193,0.3);padding:12px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .score-display{font-family:'Playfair Display',serif;font-size:22px;color:var(--pink-600)}
+  .score-bar-inner{flex:1;margin:0 24px;height:10px;background:var(--pink-100);border-radius:50px;overflow:hidden}
+  .score-bar-fill{height:100%;background:linear-gradient(90deg,var(--pink-200),var(--pink-600));border-radius:50px;transition:width .4s ease}
+  .score-hint{font-size:13px;color:var(--text-soft);font-style:italic}
+  .chips-container{max-width:900px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .chip{
+    padding:12px 22px;border-radius:50px;background:rgba(255,255,255,0.85);
+    border:2px solid var(--pink-200);color:var(--text-mid);font-size:14px;font-weight:700;
+    cursor:pointer;transition:.25s;user-select:none;position:relative;letter-spacing:.3px;
+    font-family:'Lato',sans-serif;
+  }
+  .chip:hover:not(.used){transform:translateY(-3px);border-color:var(--pink-400);box-shadow:0 6px 18px rgba(255,133,161,0.3)}
+  .chip.correct{background:linear-gradient(135deg,#ffe0ea,#ffb6c1);border-color:var(--pink-400);color:var(--pink-deep);animation:chipPop .4s ease}
+  .chip.wrong{background:#f0f0f0;border-color:#ccc;color:#999;cursor:default}
+  .chip.used{cursor:default}
+  .chip .heart-pop{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:20px;animation:heartFly .6s ease forwards;pointer-events:none}
+  @keyframes chipPop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+  @keyframes heartFly{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-40px)}}
+
+  .win-screen{
+    display:none;position:fixed;inset:0;background:rgba(255,220,235,0.97);
+    flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    z-index:200;padding:32px;
+  }
+  .win-screen.show{display:flex;animation:fadeIn .5s ease}
+  .win-screen h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,56px);color:var(--pink-600);margin-bottom:16px}
+  .win-screen p{color:var(--text-soft);font-size:18px;font-style:italic;margin-bottom:32px}
+  .win-img{width:300px;height:300px;border-radius:24px;object-fit:cover;background:linear-gradient(135deg,var(--pink-200),var(--pink-400));display:flex;align-items:center;justify-content:center;font-size:80px;margin-bottom:32px;border:4px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(255,133,161,0.4)}
+  .win-btn{padding:14px 40px;border-radius:50px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--pink-400),var(--pink-600));color:#fff;font-size:16px;font-weight:700;font-family:'Lato',sans-serif;transition:.3s}
+  .win-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(224,85,119,0.4)}
+  .confetti-piece{position:fixed;width:8px;height:8px;border-radius:50%;animation:confettiFall linear forwards;pointer-events:none}
+  @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+  /* ===== ARTICLE ===== */
+  .article-header{text-align:center;padding:64px 24px 40px;background:linear-gradient(180deg,#ffe8ef 0%,transparent 100%)}
+  .article-header h1{font-family:'Playfair Display',serif;font-size:48px;color:var(--pink-600)}
+  .article-section{max-width:960px;margin:0 auto;padding:64px 24px;border-bottom:1px dashed rgba(255,182,193,0.4)}
+  .article-section:last-child{border-bottom:none}
+  .article-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .article-layout.flip{direction:rtl}
+  .article-layout.flip>*{direction:ltr}
+  .article-img{
+    border-radius:24px;overflow:hidden;aspect-ratio:4/3;
+    background:linear-gradient(135deg,var(--pink-100),var(--pink-200));
+    display:flex;align-items:center;justify-content:center;font-size:64px;
+    box-shadow:0 12px 32px rgba(255,133,161,0.2);
+  }
+  .article-img img{width:100%;height:100%;object-fit:cover}
+  .article-text h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--pink-600);margin-bottom:20px}
+  .article-text p{font-size:15px;line-height:1.9;color:var(--text-mid);margin-bottom:16px}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:650px){
+    nav{padding:0 16px}
+    .nav-link{padding:7px 12px;font-size:12px}
+    .zodiac-grid,.memory-layout,.article-layout,.memory-photos{grid-template-columns:1fr}
+    .memory-layout.flip,.article-layout.flip{direction:ltr}
+    .opp-row{grid-template-columns:1fr auto 1fr;padding:14px 16px}
+    .countdown{gap:10px}
+    .cd-box{min-width:70px;padding:14px 16px}
+    .cd-num{font-size:26px}
+    .memory-photos .photo-slot.wide{grid-column:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-hearts">💕</div>
+    <h1>Our Secret Place</h1>
+    <p>Enter the code to unlock our story</p>
+    <input class="auth-input" id="pwd-input" type="password" placeholder="• • • • • •" maxlength="8"/>
+    <button class="auth-btn" onclick="checkPwd()">Open ✨</button>
+    <div class="auth-error" id="auth-error"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo" onclick="showPage('we')">💕</div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('we')">We</button>
+      <button class="nav-link" onclick="showPage('memories')">Memories</button>
+      <button class="nav-link" onclick="showPage('quiz')">Quiz</button>
+      <button class="nav-link" onclick="showPage('article')">Article</button>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE: WE ===== -->
+  <div id="page-we" class="page active">
+
+    <div class="hero">
+      <div class="floating-hearts" id="floating-hearts"></div>
+      <h1>Happy Anniversary 🌸</h1>
+      <p class="subtitle">Every second with you is a gift</p>
+      <div class="countdown" id="countdown">
+        <div class="cd-box"><div class="cd-num" id="cd-days">0</div><div class="cd-label">Days</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-hours">0</div><div class="cd-label">Hours</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-mins">0</div><div class="cd-label">Minutes</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-secs">0</div><div class="cd-label">Seconds</div></div>
+      </div>
+      <p style="color:var(--text-soft);font-style:italic;font-size:15px">Together since April 15, 2024 ✨</p>
+    </div>
+
+    <div class="section-block">
+      <h2 class="section-title">Our Story Begins...</h2>
+      <div class="intro-text">
+        <p>From the very first moment I saw you, something inside me just knew — this person is going to change my life forever.</p>
+        <p>Every laugh we've shared, every little moment we've stolen from ordinary days, has become the most precious memory I carry.</p>
+        <p>You make the mundane magical, the hard days bearable, and the good days absolutely unforgettable.</p>
+        <p>One year later, I fall for you a little more with every single heartbeat. Here's to us — and to all the years ahead.</p>
+      </div>
+    </div>
+
+    <div class="section-block" style="padding-top:0">
+      <h2 class="section-title">Our Zodiac Signs ✨</h2>
+      <div class="zodiac-grid">
+        <div class="zodiac-card">
+          <div class="zodiac-icon">♌</div>
+          <h3>She is Leo</h3>
+          <p>Bold, radiant, and fiercely loving. A natural queen who lights up every room she enters. Warm-hearted, generous, and endlessly loyal — her roar is as fierce as her love.</p>
+        </div>
+        <div class="zodiac-card">
+          <div class="zodiac-icon">♑</div>
+          <h3>He is Capricorn</h3>
+          <p>Steady, devoted, and quietly determined. The mountain that stands firm through any storm. Patient and grounded, his love is built to last through every season.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="opposites-section">
+      <h2 class="opposites-title">We Are Opposites 🤍🖤</h2>
+      <div class="opp-row">
+        <div class="opp-she"><span>🐶</span><p>Dog Lover</p></div>
+        <div class="opp-vs">vs</div>
+        <div class="opp-he"><span>🐱</span><p>Cat Lover</p></div>
+      </div>
+      <div class="opp-row">
+        <div class="opp-she"><span>🧋</span><p>Choo</p></div>
+        <div class="opp-vs">vs</div>
+        <div class="opp-he"><span>🥛</span><p>Milk</p></div>
+      </div>
+      <div class="opp-row">
+        <div class="opp-she"><span>🖤</span><p>Black</p></div>
+        <div class="opp-vs">vs</div>
+        <div class="opp-he"><span>🤍</span><p>White</p></div>
+      </div>
+      <div class="conclusion-text">"Opposite but balancing love." 🌸</div>
+    </div>
+
+  </div>
+
+  <!-- ===== PAGE: MEMORIES ===== -->
+  <div id="page-memories" class="page">
+    <div class="memories-header">
+      <h1>Our Memories 📸</h1>
+      <p>Every moment we've captured together</p>
+    </div>
+
+    <div class="memory-section">
+      <div class="memory-label">Chapter 01 · First Meet</div>
+      <h2>The Day Everything Changed</h2>
+      <div class="memory-layout">
+        <div class="memory-photos">
+          <div class="photo-slot">🌸</div>
+          <div class="photo-slot">💕</div>
+          <div class="photo-slot wide">✨</div>
+        </div>
+        <div class="memory-text">
+          <p>It was just another ordinary day — until it wasn't. The moment our eyes met, the whole world seemed to slow down just a little. There was something so familiar in a stranger's smile, like a memory of something that hadn't happened yet.</p>
+          <p>I didn't know then that this would be the beginning of everything. That a single moment, casual and unplanned, would become the origin story of my favourite chapter.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="memory-section">
+      <div class="memory-label">Chapter 02 · First Christmas</div>
+      <h2>Our First Holiday Together</h2>
+      <div class="memory-layout flip">
+        <div class="memory-photos">
+          <div class="photo-slot">🎄</div>
+          <div class="photo-slot">🎁</div>
+        </div>
+        <div class="memory-text">
+          <p>Christmas felt different that year — warmer, brighter, fuller. Spending the holidays with you made me understand why people say this season is magical. It's not the lights or the gifts; it's the person sitting beside you.</p>
+          <p>We laughed too loud, ate too much, and made memories that still make me smile when December rolls around.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="memory-section">
+      <div class="memory-label">Chapter 03 · First Trip</div>
+      <h2>Adventures Together</h2>
+      <div class="memory-layout">
+        <div class="memory-photos">
+          <div class="photo-slot">✈️</div>
+          <div class="photo-slot">🗺️</div>
+          <div class="photo-slot wide">🌅</div>
+        </div>
+        <div class="memory-text">
+          <p>There's a special kind of magic in travelling with someone you love. Seeing new places through your eyes made every destination twice as beautiful. Even when we got lost — especially when we got lost.</p>
+          <p>Every photo from that trip tells a story, but the best moments happened between the frames — in the car rides, the late-night snacks, the quiet sunsets we watched without saying a word.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="memory-section">
+      <div class="memory-label">Chapter 04 · First New Year</div>
+      <h2>Counting Down Together</h2>
+      <div class="memory-layout flip">
+        <div class="memory-photos">
+          <div class="photo-slot">🎆</div>
+          <div class="photo-slot">🥂</div>
+        </div>
+        <div class="memory-text">
+          <p>As the clock approached midnight, there was nowhere else on earth I would have rather been than right there beside you. Watching the fireworks with you, I made the same wish as the year before — more moments exactly like this one.</p>
+          <p>New Year's Eve is supposed to be about new beginnings, but all I could think about was how grateful I was for everything we already had.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="memory-section">
+      <div class="memory-label">Chapter 05 · First Anniversary 🎉</div>
+      <h2>One Year of Us</h2>
+      <div class="memory-layout">
+        <div class="memory-photos">
+          <div class="photo-slot">💐</div>
+          <div class="photo-slot">🎂</div>
+          <div class="photo-slot wide">💕</div>
+        </div>
+        <div class="memory-text">
+          <p>One year. Three hundred and sixty-five days of choosing each other, growing together, and building something neither of us could have imagined alone. Every single day has been worth it — even the hard ones, maybe especially those.</p>
+          <p>Here's to the first of many anniversaries — to the years ahead full of new chapters, new adventures, and more memories than we can count. I love you more today than yesterday, and tomorrow I'll love you even more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: QUIZ ===== -->
+  <div id="page-quiz" class="page">
+    <div class="quiz-header">
+      <h1>Who Is She? 🎮</h1>
+      <p>Tap the words that describe her perfectly — reach 20 to win!</p>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-display" id="score-display">Score: 0</div>
+      <div class="score-bar-inner"><div class="score-bar-fill" id="score-fill" style="width:0%"></div></div>
+      <div class="score-hint">Find 20 correct words 🌸</div>
+    </div>
+
+    <div class="chips-container" id="chips-container"></div>
+
+    <!-- WIN SCREEN -->
+    <div class="win-screen" id="win-screen">
+      <h1>Yayy!! 🎉</h1>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,32px);color:var(--pink-deep);margin-bottom:24px">Your Ma Ma's Baby 👶🏻💕</h2>
+      <div class="win-img">🥰</div>
+      <p>You know her better than anyone — just like she knows your heart.</p>
+      <button class="win-btn" onclick="resetQuiz()">Play Again 🎮</button>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: ARTICLE ===== -->
+  <div id="page-article" class="page">
+    <div class="article-header">
+      <h1>Love Letters 💌</h1>
+      <p>Words that live in the space between us</p>
+    </div>
+
+    <div class="article-section">
+      <div class="article-layout">
+        <div class="article-img">🌸</div>
+        <div class="article-text">
+          <h2>The Quiet Language of Us</h2>
+          <p>There is a language we speak that no one else knows — made of glances across crowded rooms, of inside jokes that need no explanation, of silences that feel more like home than any words could.</p>
+          <p>I have learned to read you the way you read your favourite book: slowly, carefully, savouring every page. I know the way your eyes soften when you're happy, the way your laugh changes when it's truly genuine, the way you hold your coffee cup when you're lost in thought.</p>
+          <p>You are my favourite story, and I am so grateful I get to be in yours.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-section">
+      <div class="article-layout flip">
+        <div class="article-img">💐</div>
+        <div class="article-text">
+          <h2>Everything You've Taught Me</h2>
+          <p>You've taught me that love is not a single grand gesture — it's a thousand small ones, repeated every day. It's making someone's favourite drink without being asked. It's remembering the details they mentioned once, months ago.</p>
+          <p>You've shown me that being truly known by someone is the greatest gift in the world. Not the polished, edited version of yourself — but all of it, the mess and the magic together.</p>
+          <p>Because of you, I am braver, softer, and more grateful for the ordinary moments that, strung together, make an extraordinary life.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-section">
+      <div class="article-layout">
+        <div class="article-img">🌙</div>
+        <div class="article-text">
+          <h2>A Promise for Every Year Ahead</h2>
+          <p>I promise to keep showing up for you — on the bright days and the heavy ones, in the seasons of ease and the seasons of growth. I promise to keep choosing you, not because I have to, but because there is no version of my happiest life that doesn't have you in it.</p>
+          <p>I promise to always make you laugh, even when it's terrible timing. To be the person who holds your hand in the dark and celebrates every small victory in the light.</p>
+          <p>One year is just the beginning. I can't wait for all the chapters we haven't written yet — every single one, with you.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// ===== AUTH =====
+const PWD = "51-68-16";
+function checkPwd(){
+  const v = document.getElementById('pwd-input').value;
+  if(v === PWD){
+    document.getElementById('auth-screen').classList.add('hide');
+    setTimeout(()=>{
+      document.getElementById('auth-screen').style.display='none';
+      const app = document.getElementById('app');
+      app.classList.add('show');
+      initApp();
+    },800);
+  } else {
+    const inp = document.getElementById('pwd-input');
+    inp.classList.remove('shake');
+    void inp.offsetWidth;
+    inp.classList.add('shake');
+    document.getElementById('auth-error').textContent = '💔 Wrong code, try again...';
+    inp.value='';
+  }
+}
+document.getElementById('pwd-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPwd()});
+
+// ===== PAGE NAV =====
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>{
+    if(l.textContent.toLowerCase().trim()===id||(id==='we'&&l.textContent.trim()==='We')||
+       (id==='memories'&&l.textContent.trim()==='Memories')||
+       (id==='quiz'&&l.textContent.trim()==='Quiz')||
+       (id==='article'&&l.textContent.trim()==='Article'))
+      l.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== INIT =====
+function initApp(){
+  initFloatingHearts();
+  startCountdown();
+  initQuiz();
+}
+
+// ===== FLOATING HEARTS =====
+function initFloatingHearts(){
+  const c = document.getElementById('floating-hearts');
+  const emojis=['💕','🌸','💗','🌺','💓','✨','🌷'];
+  for(let i=0;i<18;i++){
+    const h=document.createElement('span');
+    h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    h.style.cssText=`position:absolute;left:${Math.random()*100}%;font-size:${14+Math.random()*16}px;opacity:0.4;animation:floatUp ${5+Math.random()*8}s ${Math.random()*6}s linear infinite`;
+    c.appendChild(h);
+  }
+}
+
+// ===== COUNTDOWN =====
+const ANNI_DATE = new Date('2024-04-15T00:00:00');
+function startCountdown(){
+  function update(){
+    const now=new Date();
+    const diff=now-ANNI_DATE;
+    const days=Math.floor(diff/(1000*60*60*24));
+    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+    const secs=Math.floor((diff%(1000*60))/1000);
+    document.getElementById('cd-days').textContent=days;
+    document.getElementById('cd-hours').textContent=hours;
+    document.getElementById('cd-mins').textContent=mins;
+    document.getElementById('cd-secs').textContent=secs;
+  }
+  update();setInterval(update,1000);
+}
+
+// ===== QUIZ =====
+const CORRECT = new Set(['Chef','Chocolate','Genius','Smart','Tulip','Generous','Kind','Beauty','Tall','Dog Lover','Matcha','Baby Pukyi Tone','Sport','Car Lover','Runner','Fair Skin','Ash Grey','Leo','Sunday','Tulip']);
+const WRONG_WORDS=['Spicy','Ocean','Rainy','Lazy','Grumpy','Night Owl','Coffee','Soccer','Noodles','Dancer','Silent','Bold','Clumsy','Salty','Gamer','Pilot','Swimmer','Planner','Chaotic','Sleepy','Painter','Fast Food','Homebody','Explorer','Reader','Singer','Coder','Dreamer','Adventurer','Stargazer'];
+let score=0;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function initQuiz(){
+  score=0;updateScore();
+  const all=shuffle([...CORRECT,...WRONG_WORDS.slice(0,30)]);
+  const c=document.getElementById('chips-container');
+  c.innerHTML='';
+  all.forEach(word=>{
+    const chip=document.createElement('div');
+    chip.className='chip';
+    chip.textContent=word;
+    chip.onclick=()=>handleChip(chip,word);
+    c.appendChild(chip);
+  });
+  document.getElementById('win-screen').classList.remove('show');
+}
+
+function handleChip(chip,word){
+  if(chip.classList.contains('used'))return;
+  chip.classList.add('used');
+  if(CORRECT.has(word)){
+    chip.classList.add('correct');
+    score++;updateScore();
+    const h=document.createElement('span');
+    h.className='heart-pop';h.textContent='🤍';
+    chip.appendChild(h);
+    setTimeout(()=>h.remove(),700);
+    if(score>=20)setTimeout(showWin,600);
+  } else {
+    chip.classList.add('wrong');
+  }
+}
+
+function updateScore(){
+  document.getElementById('score-display').textContent='Score: '+score;
+  document.getElementById('score-fill').style.width=(score/20*100)+'%';
+}
+
+function showWin(){
+  document.getElementById('win-screen').classList.add('show');
+  launchConfetti();
+}
+
+function resetQuiz(){
+  document.getElementById('win-screen').classList.remove('show');
+  initQuiz();
+}
+
+function launchConfetti(){
+  const colors=['#FFB6C1','#FF85A1','#FFC2D1','#F7D6A3','#FFFFFF','#FF69B4'];
+  for(let i=0;i<80;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.cssText=`left:${Math.random()*100}vw;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*1.5}s`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),(5+Math.random()*3)*1000);
+  }
+}
+</script>
+</body>
+</html>
